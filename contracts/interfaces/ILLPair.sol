@@ -1,6 +1,8 @@
 pragma solidity >=0.5.0;
 
-interface ILLPair {
+import "./ILLERC20.sol";
+
+interface ILLPair is ILLERC20 {
     function MINIMUM_LIQUIDITY() external pure returns (uint);
     function factory() external view returns (address);
     function token0() external view returns (address);
