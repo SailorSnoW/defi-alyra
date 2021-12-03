@@ -58,7 +58,7 @@ contract LLPair is ILLPair, LLERC20 {
     );
     event Sync(uint112 reserve0, uint112 reserve1);
 
-    constructor() public {
+    constructor() {
         factory = msg.sender;
     }
 
