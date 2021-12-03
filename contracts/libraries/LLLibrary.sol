@@ -1,7 +1,6 @@
 pragma solidity >=0.5.0;
 
 import '../interfaces/ILLPair.sol';
-
 import "./SafeMath.sol";
 
 library LLLibrary {
@@ -17,13 +16,13 @@ library LLLibrary {
     // calculates the CREATE2 address for a pair without making any external calls
     function pairFor(address factory, address tokenA, address tokenB) internal pure returns (address pair) {
         (address token0, address token1) = sortTokens(tokenA, tokenB);
-        pair = address(bytes20(keccak256(abi.encodePacked(
+        pair = address(uint160(uint(keccak256(abi.encodePacked(
                 hex'ff',
                 factory,
                 keccak256(abi.encodePacked(token0, token1)),
-                hex'96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f' // init code hash
-            ))));
-    }
+                hex'15b76b7cd710de6e0443b5448be8e845a4966695512fa260aae50aaf859986df' // init code hash
+            )))));
+}
 
     // fetches and sorts the reserves for a pair
     function getReserves(address factory, address tokenA, address tokenB) internal view returns (uint reserveA, uint reserveB) {
