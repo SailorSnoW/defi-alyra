@@ -2,11 +2,11 @@ const { hre, ethers } = require("hardhat");
 const { BigNumber } = ethers;
 
 module.exports = {
-  UniswapFork: async () => {
+  DeFiFork: async () => {
 
     // needed to decode events log and retrieve the created pair contract address
-    const factoryArtifact = require("../artifacts/contracts/LLFactory.sol/LLFactory.json");
-    const pairArtifact = require("../artifacts/contracts/LLPair.sol/LLPair.json");
+    const factoryArtifact = require("../artifacts/contracts/1_UniswapV2Forked/LLSwapFactory.sol/LLSwapFactory.json");
+    const pairArtifact = require("../artifacts/contracts/1_UniswapV2Forked/LLSwapPair.sol/LLSwapPair.json");
     const factory_abi = factoryArtifact.abi;
     const pair_abi = pairArtifact.abi;
 
@@ -20,13 +20,13 @@ module.exports = {
       const feeToSetter = accounts[1];
   
       // get the contracts to deploy
-      this.LLFactory = await ethers.getContractFactory("LLFactory");
-      const LLRouter02 = await ethers.getContractFactory("LLRouter02");
+      const LLSwapFactory = await ethers.getContractFactory("LLSwapFactory");
+      const LLSwapRouter02 = await ethers.getContractFactory("LLSwapRouter02");
       // note that we also need to deploy the WETH token now to use it with the router
       const WETH = await ethers.getContractFactory("WETH");
   
       // deploy on the network each contracts
-      this.factory = await LLFactory.deploy(feeToSetter.address);
+      this.factory = await LLSwapFactory.deploy(feeToSetter.address);
       await factory.deployed();
       console.log("Factory deployed to:", factory.address);
   
@@ -35,7 +35,7 @@ module.exports = {
       console.log("WETH deployed to:", this.weth.address);
   
       // router is constructed with the factory address and the weth address
-      this.router = await LLRouter02.deploy(factory.address, weth.address);
+      this.router = await LLSwapRouter02.deploy(factory.address, weth.address);
       await router.deployed();
       console.log("Router deployed to:", router.address);
     }
@@ -298,6 +298,21 @@ module.exports = {
         true
       )
     }
+
+    /** @description deploy the staking contract authorize it to mint on LLS */
+    async function deploy_Staking() {
+      // deploy the staking contract
+      const LLStaking = await ethers.getContractFactory("LLStaking");
+
+      this.staking = await LLStaking.deploy(this.lls.address);
+      await staking.deployed();
+      console.log("Staking deployed to:", staking.address);
+
+
+
+      // add staking contract address to authorize mint of LLS token
+      await this.lls.setStakingAddress(staking.address);
+    }
     
     // Part 1: Fork UniswapV2
     await deploy_LLcontracts();
@@ -313,5 +328,8 @@ module.exports = {
     await deploy_masterChef();
 
     await addPools();
+
+    // Part 3: Staking contract
+    await deploy_Staking();
   }
 }

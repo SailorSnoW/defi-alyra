@@ -1,7 +1,7 @@
-const { UniswapFork } = require("./1_UniswapFork");
+const { DeFiFork } = require("./DefiScript.js");
 
 async function main(){
-    UniswapFork();
+    DeFiFork();
 }
 
 // using this pattern to be able to use async/await everywhere
