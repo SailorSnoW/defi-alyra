@@ -22,7 +22,15 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.10",
+  solidity: {
+    version: "0.8.10",
+    /** we should enable optimizer to prevent router contract being too big to deploy
+     *  we expect contracts to be executed more than millions times.
+     */
+    settings: {
+      optimizer: {enabled: true, runs: 1000000},
+    }
+  },
   networks: {
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
