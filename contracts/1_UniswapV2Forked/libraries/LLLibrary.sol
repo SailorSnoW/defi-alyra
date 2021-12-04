@@ -20,7 +20,7 @@ library LLLibrary {
                 hex'ff',
                 factory,
                 keccak256(abi.encodePacked(token0, token1)),
-                hex'15b76b7cd710de6e0443b5448be8e845a4966695512fa260aae50aaf859986df' // init code hash
+                hex'c6f7da1a28884aa23b013e3fbf7faebf5b2fe89007ba8f5e75dcca927b295f4b' // init code hash
             )))));
 }
 

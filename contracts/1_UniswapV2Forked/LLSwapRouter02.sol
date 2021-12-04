@@ -9,7 +9,7 @@ import './libraries/SafeMath.sol';
 import './interfaces/IERC20.sol';
 import './interfaces/IWETH.sol';
 
-contract LLRouter02 is ILLRouter02 {
+contract LLSwapRouter02 is ILLRouter02 {
     using SafeMath for uint;
 
     address public immutable override factory;

@@ -3,7 +3,7 @@ pragma solidity ^0.8.10;
 import './interfaces/ILLERC20.sol';
 import './libraries/SafeMath.sol';
 
-contract LLERC20 is ILLERC20 {
+contract LLSwapERC20 is ILLERC20 {
     using SafeMath for uint;
 
     string public constant name = 'LL token';

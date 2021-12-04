@@ -1,14 +1,14 @@
 pragma solidity ^0.8.10;
 
 import './interfaces/ILLPair.sol';
-import './LLERC20.sol';
+import './LLSwapERC20.sol';
 import './libraries/Math.sol';
 import './libraries/UQ112x112.sol';
 import './interfaces/IERC20.sol';
 import './interfaces/ILLFactory.sol';
 import './interfaces/ILLCallee.sol';
 
-contract LLPair is ILLPair, LLERC20 {
+contract LLSwapPair is ILLPair, LLSwapERC20 {
     using SafeMath  for uint;
     using UQ112x112 for uint224;
 
