@@ -5,12 +5,10 @@ import '@uniswap/lib/contracts/libraries/TransferHelper.sol';
 
 import './interfaces/ILLRouter02.sol';
 import './libraries/LLLibrary.sol';
-import './libraries/SafeMath.sol';
 import './interfaces/IERC20.sol';
 import './interfaces/IWETH.sol';
 
 contract LLSwapRouter02 is ILLRouter02 {
-    using SafeMath for uint;
 
     address public immutable override factory;
     address public immutable override WETH;
@@ -328,7 +326,7 @@ contract LLSwapRouter02 is ILLRouter02 {
             { // scope to avoid stack too deep errors
             (uint reserve0, uint reserve1,) = pair.getReserves();
             (uint reserveInput, uint reserveOutput) = input == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
-            amountInput = IERC20(input).balanceOf(address(pair)).sub(reserveInput);
+            amountInput = IERC20(input).balanceOf(address(pair)) - reserveInput;
             amountOutput = LLLibrary.getAmountOut(amountInput, reserveInput, reserveOutput);
             }
             (uint amount0Out, uint amount1Out) = input == token0 ? (uint(0), amountOutput) : (amountOutput, uint(0));
@@ -349,7 +347,7 @@ contract LLSwapRouter02 is ILLRouter02 {
         uint balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
         _swapSupportingFeeOnTransferTokens(path, to);
         require(
-            IERC20(path[path.length - 1]).balanceOf(to).sub(balanceBefore) >= amountOutMin,
+            IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin,
             'LLRouter: INSUFFICIENT_OUTPUT_AMOUNT'
         );
     }
@@ -372,7 +370,7 @@ contract LLSwapRouter02 is ILLRouter02 {
         uint balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
         _swapSupportingFeeOnTransferTokens(path, to);
         require(
-            IERC20(path[path.length - 1]).balanceOf(to).sub(balanceBefore) >= amountOutMin,
+            IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin,
             'LLRouter: INSUFFICIENT_OUTPUT_AMOUNT'
         );
     }
