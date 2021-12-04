@@ -8,6 +8,7 @@ contract LLStaking is ERC20 {
 
     IERC20 public lls;
 
+    /** @dev timestamp of last mint */
     uint private lastMint;
 
     constructor(address _lls) ERC20("staked LLS", "stkLLS") {
