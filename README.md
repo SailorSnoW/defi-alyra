@@ -2,8 +2,7 @@
 
 Using hardhat for easier debugging with the hardhat console.
 
-Forked contracts from UniswapV2 and SushiSwap are updated to 0.8.10.
-Please note that updated contracts still use SafeMath, this will need to be removed in the future.
+Forked contracts from UniswapV2 and SushiSwap are updated to 0.8.10 and don't use SafeMath anymore.
 
 The excercise is divided in 3 different part.
 
@@ -66,7 +65,7 @@ Staking contract are situed at
 
 &nbsp;
 
-## Token
+## Tokens
 
 #### *`LLStake (LLS)`* 
 
