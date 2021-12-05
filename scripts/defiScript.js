@@ -128,20 +128,7 @@ module.exports = {
         fDAI_WETH_Provider.address,
         ethers.utils.parseEther("100")
       );
-      // getting 100 Wrapped Ether for each provider
-      await fUSDT_WETH_Provider.sendTransaction({
-        to: this.weth.address,
-        value: ethers.utils.parseEther("100"),
-      });
-      await fUSDC_WETH_Provider.sendTransaction({
-        to: this.weth.address,
-        value: ethers.utils.parseEther("100"),
-      });
-      await fDAI_WETH_Provider.sendTransaction({
-        to: this.weth.address,
-        value: ethers.utils.parseEther("100"),
-      });
-  
+
       // approving router contract to deposit funds
       await this.fusdt
         .connect(fUSDT_WETH_Provider)
@@ -150,15 +137,6 @@ module.exports = {
         .connect(fUSDC_WETH_Provider)
         .approve(this.router.address, ethers.utils.parseEther("100"));
       await this.fdai
-        .connect(fDAI_WETH_Provider)
-        .approve(this.router.address, ethers.utils.parseEther("100"));
-      await this.weth
-        .connect(fUSDT_WETH_Provider)
-        .approve(this.router.address, ethers.utils.parseEther("100"));
-      await this.weth
-        .connect(fUSDC_WETH_Provider)
-        .approve(this.router.address, ethers.utils.parseEther("100"));
-      await this.weth
         .connect(fDAI_WETH_Provider)
         .approve(this.router.address, ethers.utils.parseEther("100"));
 
@@ -170,39 +148,36 @@ module.exports = {
        */
       await this.router
         .connect(fUSDT_WETH_Provider)
-        .addLiquidity(
+        .addLiquidityETH(
           fusdt.address,
-          weth.address,
-          ethers.utils.parseEther("100"),
           ethers.utils.parseEther("100"),
           0,
           0,
           fUSDT_WETH_Provider.address,
-          1838497206
+          1838497206,
+          {value: ethers.utils.parseEther("100")}
         );
       await this.router
         .connect(fUSDC_WETH_Provider)
-        .addLiquidity(
+        .addLiquidityETH(
           fusdc.address,
-          weth.address,
-          ethers.utils.parseEther("100"),
           ethers.utils.parseEther("100"),
           0,
           0,
           fUSDC_WETH_Provider.address,
-          1838497206
+          1838497206,
+          {value: ethers.utils.parseEther("100")}
         );
       await this.router
         .connect(fDAI_WETH_Provider)
-        .addLiquidity(
+        .addLiquidityETH(
           fdai.address,
-          weth.address,
-          ethers.utils.parseEther("100"),
           ethers.utils.parseEther("100"),
           0,
           0,
           fDAI_WETH_Provider.address,
-          1838497206
+          1838497206,
+          {value: ethers.utils.parseEther("100")}
         );
     }
   
@@ -211,29 +186,18 @@ module.exports = {
       const accounts = await ethers.getSigners();
       
       const user = accounts[5];
-  
-      // provide some fDAI and fUSDT which the user will swap later
-      await this.fdai.mint(user.address, ethers.utils.parseEther("25"));
-      await this.fusdt.mint(user.address, ethers.utils.parseEther("25"));
-  
-      // allow router contract to transfer tokens
-      await this.fdai
-        .connect(user)
-        .approve(this.router.address, ethers.utils.parseEther("25"));
-      await this.fusdt
-        .connect(user)
-        .approve(this.router.address, ethers.utils.parseEther("25"));
-  
+
       // swap 25 fusdt against 25 weth
       await this.router
         .connect(user)
-        .swapExactTokensForTokens(
+        .swapETHForExactTokens(
           ethers.utils.parseEther("25"),
-          ethers.utils.parseEther("18"),
-          [fdai.address, weth.address],
+          [weth.address, fdai.address],
           user.address,
-          1838497206
+          1838497206,
+          {value: ethers.utils.parseEther("34")}
         );
+
       /** 
       let newDAIBalance = await fdai.balanceOf(user.address);
       console.log("fDAI: ", ethers.utils.formatEther(BigNumber.from(newDAIBalance)));
