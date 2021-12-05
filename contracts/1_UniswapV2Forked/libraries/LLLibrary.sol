@@ -51,7 +51,7 @@ library LLLibrary {
         require(amountOut > 0, 'LLLibrary: INSUFFICIENT_OUTPUT_AMOUNT');
         require(reserveIn > 0 && reserveOut > 0, 'LLLibrary: INSUFFICIENT_LIQUIDITY');
         uint numerator = reserveIn * amountOut * 1000;
-        uint denominator = reserveOut - amountOut * 997;
+        uint denominator = (reserveOut - amountOut) * 997;
         amountIn = (numerator / denominator) + 1;
     }
 
