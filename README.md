@@ -2,7 +2,11 @@
 
 Using hardhat for easier debugging with the hardhat console.
 
-Forked contracts from UniswapV2 and SushiSwap are updated to 0.8.10 and don't use SafeMath anymore.
+Forked contracts from UniswapV2 are updated to 0.8.10 and don't use SafeMath anymore.
+Forked contract from SushiSwap is updated to 0.8.10 but now use OpenZeppelin SafeMath for >0.8 instead of the old SafeMath.
+
+Tests are also available in *`test`* folder and divided in multiple files, depending on the part.
+Tests are just testing things in the scope of the exercise and aim to be minimals.
 
 The excercise is divided in 3 different part.
 
@@ -10,22 +14,26 @@ The excercise is divided in 3 different part.
 
 Main UniswapV2 forked contracts (doesn't include interfaces/libraries)
 
-##### *`UniswapV2Pair.sol`*
+[*`UniswapV2Pair.sol`*](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Pair.sol)
 
-##### *`UniswapV2ERC20.sol`*
+[*`UniswapV2ERC20.sol`*](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2ERC20.sol)
 
-##### *`UniswapV2Factory.sol`*
+[*`UniswapV2Factory.sol`*](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Factory.sol)
+
+[*`UniswapV2Router02.sol`*](https://github.com/Uniswap/v2-periphery/blob/master/contracts/UniswapV2Router02.sol)
 
 &nbsp;
 Forked contracts are situed in
 
 ##### *`contracts/1_UniswapV2Forked/`*
 
-- ##### *`LLSwapPair.sol`*
+- *`LLSwapPair.sol`*
 
-- ##### *`LLSwapERC20.sol`*
+- *`LLSwapERC20.sol`*
 
-- ##### *`LLSwapFactory.sol`*
+- *`LLSwapFactory.sol`*
+
+- *`LLSwapRouter.sol`*
 
 &nbsp;
 
@@ -33,13 +41,13 @@ Forked contracts are situed in
 
 As asked, only one SushiSwap contract got forked
 
-##### *`MasterChef.sol`*
+[*`MasterChef.sol`*](https://github.com/sushiswap/sushiswap/blob/canary/contracts/MasterChef.sol)
 &nbsp;
 Forked contracts are situed in
 
 ##### *`contracts/2_SushiSwapForked`*
 
-- ##### *`LLMasterChef.sol`*
+- *`LLMasterChef.sol`*
 
 &nbsp;
 
@@ -90,11 +98,11 @@ contracts of fake tokens are situed in:
 
 ##### *`contracts/1_UniswapV2Forked/tokens/`*
 
-- ##### *`fUSDT.sol`*
+- *`fUSDT.sol`*
 
-- ##### *`fUSDC.sol`*
+- *`fUSDC.sol`*
 
-- ##### *`fDAI.sol`*
+- *`fDAI.sol`*
 &nbsp;
 
 #### *`Wrapped Ether (WETH)`*
@@ -102,3 +110,7 @@ contracts of fake tokens are situed in:
 *WETH* is a fork of the actual [WETH9](https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2) contract.
 
 It wrap Ethers in a ERC20 token.
+
+WETH contract is situed at
+
+##### *`contracts/1_UniswapV2Forked/tokens/WETH.sol`*
