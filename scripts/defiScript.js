@@ -243,7 +243,7 @@ module.exports = {
     /**
      *  @description add the created pairs into the masterchef pool
      *  @dev pool rewards ratio is defined as:
-     *       fUSDC/WETH (30%), fUSDT/WETH (20%) and fDAI/WETHc(50%)
+     *       fUSDC/WETH (30%), fUSDT/WETH (20%) and fDAI/WETH(50%)
      */
     async function addPools() {
       await this.masterchef.add(
