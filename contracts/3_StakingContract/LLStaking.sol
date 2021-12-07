@@ -60,6 +60,7 @@ contract LLStaking is ERC20 {
     function mintLLS() public {
         uint timeCheck = block.timestamp - lastMint;
         require(timeCheck >= 3600, "LLStaking: should wait for new mint");
+        lastMint = block.timestamp;
         (bool success, bytes memory data) = address(lls).call(abi.encodeWithSignature("_mint(address,uint)", address(this), 10*(10**18)));
         require(success = true || data.length == 0, "LLstaking: can't mint new LLS");
     }
