@@ -114,3 +114,12 @@ It wrap Ethers in a ERC20 token.
 WETH contract is situed at
 
 ##### *`contracts/1_UniswapV2Forked/tokens/WETH.sol`*
+
+&nbsp;
+
+## Gas Informations
+
+### *`Calls cost`*
+![Calls cost](./docs/calls_cost.png)
+### *`Deployments cost`*
+![Deployments cost](./docs/deploy_cost.png)
